@@ -1,6 +1,8 @@
 # Venexus Docs
 > **venexus** (from "venustus" meaning elegant/beautiful in Latin + "nexus" meaning central)
 
+Venexus Docs is a ...
+
 ## 📂 Project Structure
 Inside of your Astro project, you'll see the following folders and files:
 

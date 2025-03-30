@@ -1,12 +1,12 @@
-import type { AnyEntryMap, CollectionEntry, InferEntrySchema, RenderedContent } from "astro:content"
+import type { AnyEntryMap, CollectionEntry, RenderedContent } from "astro:content"
 import type React from "react"
 
 /**
  * Various helper types for Astro collection data
  */
 export type AstroCollectionKey = keyof AnyEntryMap
-export type AstroCollectionEntry = CollectionEntry<AstroCollectionKey>
-export type AstroCollection = AstroCollectionEntry[]
+export type AstroCollectionEntry<K extends AstroCollectionKey> = CollectionEntry<K>
+export type AstroCollection = AstroCollectionEntry<AstroCollectionKey>[]
 
 /**
  * DocumentEntry represents the final object that gets passed to the components for rendering
@@ -15,17 +15,17 @@ export type DocumentEntry<K extends AstroCollectionKey> = {
   id: string
   path: string
   rendered: RenderedContent
-  data: InferEntrySchema<K>
+  data: AstroCollectionEntry<K>["data"]
 }
 
 /**
  * Document represents a single documentation file
  * @property {string} type - Discriminator field set to "document"
- * @property {string} filename - Path to the document file
+ * @property {string} document - Path to the document file
  */
 export type Document = {
   type: "document"
-  filename: string
+  document: DocumentEntry<AstroCollectionKey>
 }
 
 /**
@@ -37,7 +37,7 @@ export type Document = {
 export type Group = {
   type: "group"
   title: string
-  documents: string[]
+  documents: DocumentEntry<AstroCollectionKey>[]
 }
 
 /**
